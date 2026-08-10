@@ -5,4 +5,5 @@ from record import recording_audio
 model = whisper.load_model("base")
 result = model.transcribe(recording_audio())
 
+# print result
 print(result["text"]) 
