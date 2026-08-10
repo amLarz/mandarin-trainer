@@ -1,6 +1,4 @@
 import sounddevice as sd
-import numpy as np 
-import scipy.io.wavfile as wav
 
 fs = 16000 # sample rate of whisper.
 duration = 5 # seconds
