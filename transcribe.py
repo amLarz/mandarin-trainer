@@ -1,9 +1,8 @@
 import whisper
-from test_path import load_audio_files
+from record import recording_audio
 
-audio_file = load_audio_files()
+# downlaod trhe model and get result
+model = whisper.load_model("base")
+result = model.transcribe(recording_audio())
 
-model = whisper.load_model("turbo")
-result = model.transcribe(audio_file)
-
-print(result["text"])
+print(result["text"]) 
