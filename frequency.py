@@ -12,3 +12,32 @@ CREATE TABLE IF NOT EXISTS word_frequency (
 ''')
 
 con.commit()
+
+def update_word_frequency(word):
+    cur.execute('SELECT frequency FROM word_frequency WHERE word = ?', (word,))
+    result = cur.fetchone()
+    
+    if result is None:
+        cur.execute('INSERT INTO word_frequency (word, frequency) VALUES (?, ?)', 
+                    (word, 1)
+        )
+    else:
+        cur.execute('UPDATE word_frequency SET frequency = frequency + 1 WHERE word = ?', 
+                    (word,)
+        )
+    
+    con.commit()
+    
+    cur.execute('SELECT * FROM word_frequency')
+    result = cur.fetchall()
+    print(result)
+    
+    return 0
+
+def update_database(tiers):
+    for tier in tiers.keys():
+        print(tier)
+        for word in tiers.values():
+            print(word)
+
+    return 0
