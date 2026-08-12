@@ -23,10 +23,16 @@ def classify_words(token):
         return "tier0_function"
     if token.pos_ in ["NOUN", "VERB", "ADJ"]:
         return "tier1_content"
+    return None
     
 def process_text(text):
     # process the text using spaCy
     doc = nlp(text)
-    tier = {"tier0_function": [], "tier1_content": []}
-    
-    return 
+    tiers = {"tier0_function": [], "tier1_content": []}
+    for token in doc:
+        classification = classify_words(token)
+        if classification:
+            tiers[classification].append(token.lemma_.lower())
+        
+    return tiers
+
