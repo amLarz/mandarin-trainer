@@ -21,7 +21,7 @@ def classify_words(token):
     # classify words in the text from the tiers
     if lemma in CORE_FUNCTIONAL_WORDS:
         return "tier0_function"
-    if token.pos_ in ["NOUN", "VERB", "ADJ"]:
+    if token.pos_ in ["NOUN", "VERB", "ADJ", "PRON"]:
         return "tier1_content"
     return None
     
@@ -31,7 +31,7 @@ def process_text(text):
     tiers = {"tier0_function": [], "tier1_content": []}
     for token in doc:
         classification = classify_words(token)
-        if classification:
+        if classification and token.lemma_ not in tiers[classification]:
             tiers[classification].append(token.lemma_.lower())
         
     return tiers

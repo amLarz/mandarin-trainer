@@ -8,3 +8,4 @@ print("Transcribed Text:", text)
 
 # process the transcribed text
 processed_tiers = process_text(text)
+print("Processed Tiers:", processed_tiers)
