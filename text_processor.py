@@ -14,15 +14,17 @@ def load_core_functional_words():
             
     return CORE_FUNCTIONAL_WORDS
 
+CORE_FUNCTIONAL_WORDS = load_core_functional_words()
+
 def classify_words(token):
     lemma = token.lemma_.lower()
-    CORE_FUNCTIONAL_WORDS = load_core_functional_words()
     
     # classify words in the text from the tiers
     if lemma in CORE_FUNCTIONAL_WORDS:
         return "tier0_function"
-    if token.pos_ in ["NOUN", "VERB", "ADJ", "PRON"]:
+    if token.pos_ in ["NOUN", "VERB", "ADJ"]:
         return "tier1_content"
+    
     return None
     
 def process_text(text):
@@ -30,9 +32,8 @@ def process_text(text):
     doc = nlp(text)
     tiers = {"tier0_function": [], "tier1_content": []}
     for token in doc:
-        classification = classify_words(token)
-        if classification and token.lemma_ not in tiers[classification]:
-            tiers[classification].append(token.lemma_.lower())
+        classification = classify_words(token) # classify the token through the function
+        if classification and token.lemma_.lower() not in tiers[classification]:
+            tiers[classification].append(token.lemma_.lower()) # appends to the classified tier if not already present
         
     return tiers
-
