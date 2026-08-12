@@ -9,7 +9,7 @@ def load_core_functional_words():
     with open('core-functional-words-v1.csv', 'r') as file:
         reader = csv.reader(file)
         for row in reader:
-            word = row[0]
+            word = row[0].lower()
             CORE_FUNCTIONAL_WORDS.add(word)
             
     return CORE_FUNCTIONAL_WORDS
