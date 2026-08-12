@@ -18,11 +18,11 @@ CORE_FUNCTIONAL_WORDS = load_core_functional_words()
 
 def classify_words(token):
     lemma = token.lemma_.lower()
-    
+
     # classify words in the text from the tiers
     if lemma in CORE_FUNCTIONAL_WORDS:
         return "tier0_function"
-    if token.pos_ in ["NOUN", "VERB", "ADJ"]:
+    if token.pos_ in ["NOUN", "VERB", "ADJ", "ADV"]:
         return "tier1_content"
     
     return None
@@ -30,7 +30,7 @@ def classify_words(token):
 def process_text(text):
     # process the text using spaCy
     doc = nlp(text)
-    tiers = {"tier0_function": [], "tier1_content": []}
+    tiers = {"tier0_function": [], "tier1_content": [], "filler": []}
     for token in doc:
         classification = classify_words(token) # classify the token through the function
         if classification and token.lemma_.lower() not in tiers[classification]:

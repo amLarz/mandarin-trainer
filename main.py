@@ -4,7 +4,7 @@ from frequency import update_database
 
 
 # transcribe audio and get result
-text = transcribe_test() # TESTING PURPOSES: USE TRANSCRIBE_AUDIO()
+text = transcribe_audio() # TESTING PURPOSES: USE TRANSCRIBE_AUDIO()
 print("Transcribed Text:", text)
 
 # process the transcribed text
