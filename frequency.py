@@ -34,6 +34,7 @@ def update_word_frequency(word):
     
     return 0
 
+# TODO: update the database with the processed tiers
 def update_database(tiers):
     for tier in tiers.keys():
         print(tier)
