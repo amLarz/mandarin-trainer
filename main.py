@@ -12,4 +12,3 @@ processed_tiers = process_text(text)
 print("Processed Tiers:", processed_tiers)
 
 # update the word frequency in the database
-update_database(processed_tiers)

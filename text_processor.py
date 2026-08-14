@@ -16,24 +16,25 @@ def load_core_functional_words():
 
 CORE_FUNCTIONAL_WORDS = load_core_functional_words()
 
-def classify_words(token):
-    lemma = token.lemma_.lower()
-
-    # classify words in the text from the tiers
-    if lemma in CORE_FUNCTIONAL_WORDS:
-        return "tier0_function"
-    if token.pos_ in ["NOUN", "VERB", "ADJ", "ADV"]:
-        return "tier1_content"
+# TODO: recursive function, use token.text to print the doc[index] of your choice
+def filter_words_layer1(doc, index=0):
+    lemma = token.lemma_
+    
+    if index == len:
+        return []
+    
+    if not lemma.is_stop:
+        return [lemma ]
+    
+    return
+def filter_words(doc):
+    filter_words_layer1(doc)
     
     return None
-    
+
 def process_text(text):
     # process the text using spaCy
     doc = nlp(text)
-    tiers = {"tier0_function": [], "tier1_content": [], "filler": []}
-    for token in doc:
-        classification = classify_words(token) # classify the token through the function
-        if classification and token.lemma_.lower() not in tiers[classification]:
-            tiers[classification].append(token.lemma_.lower()) # appends to the classified tier if not already present
+    
+    filter_words(doc)
         
-    return tiers
