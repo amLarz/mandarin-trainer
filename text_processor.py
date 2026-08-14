@@ -33,7 +33,7 @@ def filter_words_layer1(doc, index=0):
     
     return filter_words_layer1(doc, index + 1)
 
-
+# TODO: add a second layer of filtering to remove orphan dependencies and return the lemmas of the remaining words
 def filter_words_layer2(doc, layer1_result, index=0):
     
     # orphan dependencies that are not useful for our purposes
