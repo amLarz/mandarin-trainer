@@ -11,4 +11,4 @@ print("Transcribed Text:", text)
 processed_tiers = process_text(text)
 print("Processed Tiers:", processed_tiers)
 
-# update the word frequency in the database
+# update the word frequency in the database 

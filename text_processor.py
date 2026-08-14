@@ -1,3 +1,5 @@
+import token
+
 import spacy
 import csv
 
@@ -18,23 +20,25 @@ CORE_FUNCTIONAL_WORDS = load_core_functional_words()
 
 # TODO: recursive function, use token.text to print the doc[index] of your choice
 def filter_words_layer1(doc, index=0):
-    lemma = token.lemma_
     
-    if index == len:
+    if index >= len(doc):
         return []
     
-    if not lemma.is_stop:
-        return [lemma ]
+    token = doc[index]
+    lemma = token.lemma_
     
-    return
+    if not token.is_stop:
+        return [lemma] + filter_words_layer1(doc, index + 1)
+    
+    return filter_words_layer1(doc, index + 1)
+
 def filter_words(doc):
-    filter_words_layer1(doc)
-    
-    return None
+    layer1_result = filter_words_layer1(doc)
+    return layer1_result
 
 def process_text(text):
     # process the text using spaCy
     doc = nlp(text)
     
-    filter_words(doc)
+    return filter_words(doc)
         
