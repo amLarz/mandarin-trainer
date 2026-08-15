@@ -4,7 +4,7 @@ from frequency import update_database
 
 
 # transcribe audio and get result
-text = "I run everyday before going to school." # TESTING PURPOSES: USE TRANSCRIBE_AUDIO()
+text = "I run everyday before going to school. 1, 2, 3, 4, 5" # TESTING PURPOSES: USE TRANSCRIBE_AUDIO()
 print("Transcribed Text:", text)
 # process the transcribed text
 processed_tiers = process_text(text)
