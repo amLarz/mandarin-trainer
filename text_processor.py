@@ -44,10 +44,8 @@ def is_orphaned_filter(token):
 
     return False
 
-# TODO: UNFINISHED
 def classify_words(token):
     lemma = token.lemma_
-    dep = token.dep_
     
     if lemma in CORE_FUNCTIONAL_WORDS:
         return "tier0_functional"
