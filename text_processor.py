@@ -45,22 +45,33 @@ def filter_words_layer2(doc, layer1_result, index=0):
     "intj",
     }
     
-    if index >= len(layer1_result): # if the index is reached end the function
+    # if the index is reached end the function
+    if index >= len(doc):
         return [] 
-    
+   
     # initializing variables for the current token
     token = doc[index]
     lemma = token.lemma_
     dep = token.dep_
     
+    # if the lemma is not in first layer result, move on.
+    if lemma not in layer1_result:
+        return filter_words_layer2(doc, layer1_result, index + 1)
+    
+    # if there are any orphan dependencies, move on.
     if dep in ORPHAN_DEPS:
         return filter_words_layer2(doc, layer1_result, index + 1)
     
+    # else return the lemma and move on to the next token
     return [lemma] + filter_words_layer2(doc, layer1_result, index + 1)
 
 def filter_words(doc):
+    # layer 1: filter out stop words
     layer1_result = filter_words_layer1(doc)
+    
+    # layer 2: filter out orphan dependencies
     layer2_result = filter_words_layer2(doc, layer1_result)
+    
     return layer1_result, layer2_result
 
 def process_text(text):
