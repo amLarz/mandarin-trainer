@@ -1,4 +1,4 @@
-from transcribe import transcribe_audio, transcribe_test
+from transcribe import transcribe_audio
 from text_processor import process_text
 from frequency import update_database
 
