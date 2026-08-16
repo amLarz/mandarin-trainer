@@ -4,7 +4,6 @@ import csv
 # load the English NLP model
 nlp = spacy.load("en_core_web_sm")
 
-# MIGHT REMOVE
 def load_core_functional_words():
     CORE_FUNCTIONAL_WORDS = set()
     with open('core-functional-words-v1.csv', 'r') as file:
@@ -54,30 +53,32 @@ def classify_words(token):
     
     return None
 
-def filter_words(doc):
-    classification = {"tier0_functional": [], "tier1_content": []}
-    for token in doc:
-        # layer 1: filter out stop words
-        is_stop = is_stop_filter(token)
+def process_token(token):
+    # layer 1: filter out stop words
+    is_stop = is_stop_filter(token)
 
-        if is_stop == True:
-            is_orphaned = True
-        else:
-            # layer 2: filter out orphan dependencies
-            is_orphaned = is_orphaned_filter(token)
+    if is_stop == True:
+        is_orphaned = True
+    else:
+        # layer 2: filter out orphan dependencies
+        is_orphaned = is_orphaned_filter(token)
 
-        if not is_stop and not is_orphaned:
-            # layer 3: classify words
-            classified_words = classify_words(token)
+    if not is_stop and not is_orphaned:
+        # layer 3: classify words
+        return classify_words(token)
             
-            if classified_words:
-                classification[classified_words].append(token.lemma_)
-            
-    return classification
+    return None
 
 def process_text(text):
     # process the text using spaCy
     doc = nlp(text)
+    sents = list(doc.sents)
+
+    for sent in sents:
+        classification = {"tier0_functional": [], "tier1_content": []}
+        for token in sent:
+            result = process_token(token)
+            if result:
+                classification[result].append(token.lemma_)
     
-    return filter_words(doc)
-        
+    return classification

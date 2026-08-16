@@ -12,6 +12,6 @@ def load_audio_files():
 def transcribe_test():
     # downlaod trhe model and get result
     model = whisper.load_model("base")
-    result = model.transcribe(load_audio_files())
+    result = model.transcribe(load_audio_files()) # loads audio files
     
     return result["text"]
