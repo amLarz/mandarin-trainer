@@ -25,5 +25,3 @@ cur.execute('''CREATE TABLE IF NOT EXISTS words_sentences (
 )''')
 
 con.commit()
-
-def update_word_frequency(
