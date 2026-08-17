@@ -8,10 +8,3 @@ def load_audio_files():
     for file in os.listdir(os.path.join(FOLDER_PATH, 'audio-test')):
         if file.endswith(file_formats):
             return os.path.join(FOLDER_PATH, 'audio-test', file)
-
-def transcribe_test():
-    # downlaod trhe model and get result
-    model = whisper.load_model("base")
-    result = model.transcribe(load_audio_files()) # loads audio files
-    
-    return result["text"]

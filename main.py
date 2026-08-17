@@ -1,8 +1,12 @@
 from transcribe import transcribe_audio
+from record import recording_audio
 from text_processor import process_text
 
+# TESTING IMPORT
+from testing.test_audio import load_audio_files
+
 # transcribe audio and get result
-text = "I run everyday before going to school. 1, 2, 3, 4, 5" # TESTING PURPOSES: USE TRANSCRIBE_AUDIO()
+text = transcribe_audio(recording_audio()) # TESTING PURPOSES: USE TRANSCRIBE_AUDIO()
 print("Transcribed Text:", text)
 
 # process the transcribed text
