@@ -1,9 +1,9 @@
-from transcribe import transcribe_audio
-from record import recording_audio
-from text_processor import process_text
+from audio.transcribe import transcribe_audio
+from audio.record import recording_audio
+from nlp.text_processor import process_text
 
 # TESTING IMPORT
-from testing.test_audio import load_audio_files
+from tests.test_audio import load_audio_files
 
 # transcribe audio and get result
 text = transcribe_audio(recording_audio()) # TESTING PURPOSES: USE TRANSCRIBE_AUDIO()
