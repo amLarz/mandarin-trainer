@@ -1,0 +1,5 @@
+# ignore databases generated
+mandarin.db
+
+# ignore pycache folders
+pycache/
