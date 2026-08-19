@@ -81,6 +81,6 @@ def process_text(text):
             classified_token = process_token(token)
             if classified_token:
                 classification[classified_token].append(token.lemma_)
-        results.append({"text": sent, "classification": classification})
+        results.append({"text": sent.text, "classification": classification})
     
     return results

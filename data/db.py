@@ -50,7 +50,7 @@ def insert_sentence(sentence):
     )
     
     # return the last sentence id
-    return cur.lastrowid()
+    return cur.lastrowid
 
 def word_sentence_link(word_id, sentence_id):
     cur.execute("INSERT OR IGNORE INTO words_sentences_links (word_id, sentence_id) VALUES (?, ?)",
@@ -60,6 +60,10 @@ def word_sentence_link(word_id, sentence_id):
     return 0
 
 def save_to_database(results):
+    
+    sentences_count = 0
+    word_links_count = 0
+    
     for record in results:
         sentence_id = insert_sentence(record["text"])
         sentences_count += 1
