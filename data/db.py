@@ -5,8 +5,8 @@ cur = con.cursor()
 
 # WORDS TABLE
 cur.execute('''CREATE TABLE IF NOT EXISTS words (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    word TEXT NOT NULL,
+    id INTEGER PRIMARY KEY,
+    word TEXT NOT NULL UNIQUE,
     frequency INTEGER NOT NULL DEFAULT 0
 )''')
 
@@ -17,7 +17,7 @@ cur.execute('''CREATE TABLE IF NOT EXISTS sentences (
 )''')
 
 # WORDS_SENTENCES TABLE
-cur.execute('''CREATE TABLE IF NOT EXISTS words_sentences (
+cur.execute('''CREATE TABLE IF NOT EXISTS words_sentences_links (
     word_id INTEGER NOT NULL,
     sentence_id INTEGER NOT NULL,
     FOREIGN KEY (word_id) REFERENCES words(id),
@@ -25,3 +25,41 @@ cur.execute('''CREATE TABLE IF NOT EXISTS words_sentences (
 )''')
 
 con.commit()
+
+def insert_word(word):
+    cur.execute("INSERT OR IGNORE INTO words (word) VALUES (?)", 
+                (word,)
+    )
+        
+    cur.execute("UPDATE words SET frequency = frequency + 1 WHERE word = ?", 
+                (word,)
+    )
+    
+    word_id = cur.execute("SELECT id FROM words WHERE word = ?",
+                          (word,)
+            ).fetchone()[0]
+    
+    return word_id
+
+def insert_sentence(sentence):
+    cur.execute("INSERT INTO sentences (sentence) VALUES (?)", 
+                (sentence,)
+    )
+    
+    sentence_id = cur.execute("SELECT id FROM sentences WHERE sentence = ?",
+                              (sentence,)
+                ).fetchone()[0]
+    
+    return sentence_id
+
+def word_sentence_link(word_id, sentence_id):
+    
+    return
+        
+def save_to_database(results):
+    for record in results[]:
+        sentence_id = insert_sentence(record["text"])
+        for lemma in record["classification"]["tier1_content"]:
+            word_id = insert_word(lemma)
+    
+    return
