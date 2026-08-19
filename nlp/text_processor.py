@@ -73,12 +73,14 @@ def process_text(text):
     # process the text using spaCy
     doc = nlp(text)
     sents = list(doc.sents)
+    results = []
 
     for sent in sents:
         classification = {"tier0_functional": [], "tier1_content": []}
         for token in sent:
-            result = process_token(token)
-            if result:
-                classification[result].append(token.lemma_)
+            classified_token = process_token(token)
+            if classified_token:
+                classification[classified_token].append(token.lemma_)
+        results.append({"text": sent.text, "classification": classification})
     
-    return classification
+    return results
