@@ -57,7 +57,7 @@ def word_sentence_link(word_id, sentence_id):
     return
         
 def save_to_database(results):
-    for record in results[]:
+    for record in results:
         sentence_id = insert_sentence(record["text"])
         for lemma in record["classification"]["tier1_content"]:
             word_id = insert_word(lemma)
