@@ -16,12 +16,13 @@ cur.execute('''CREATE TABLE IF NOT EXISTS sentences (
     sentence TEXT NOT NULL
 )''')
 
-# WORDS_SENTENCES TABLE
+# WORDS_SENTENCES_LINKS TABLE
 cur.execute('''CREATE TABLE IF NOT EXISTS words_sentences_links (
     word_id INTEGER NOT NULL,
     sentence_id INTEGER NOT NULL,
     FOREIGN KEY (word_id) REFERENCES words(id),
     FOREIGN KEY (sentence_id) REFERENCES sentences(id)
+    PRIMARY KEY (word_id, sentence_id)
 )''')
 
 con.commit()
@@ -48,15 +49,17 @@ def insert_sentence(sentence):
                 (sentence,)
     )
     
-    sentence_id = cur.execute("SELECT id FROM sentences WHERE sentence = ?",
-                              (sentence,)
-                ).fetchone()[0]
+    sentence_id = cur.lastrowid
     
     con.commit()
     
     return sentence_id
 
 def word_sentence_link(word_id, sentence_id):
+    cur.execute("INSERT OR IGNORE INTO words_sentences_links (word_id, sentence_id) VALUES (?, ?)",
+                (word_id, sentence_id)
+    )
+    con.commit()
     
     return
 
@@ -65,6 +68,7 @@ def save_to_database(results):
         sentence_id = insert_sentence(record["text"])
         for lemma in record["classification"]["tier1_content"]:
             word_id = insert_word(lemma)
+            word_sentence_link(word_id, sentence_id)
     
     con.commit()
     
