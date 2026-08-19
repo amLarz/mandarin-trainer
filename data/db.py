@@ -12,7 +12,7 @@ cur.execute('''CREATE TABLE IF NOT EXISTS words (
 
 # SENTENCES TABLE
 cur.execute('''CREATE TABLE IF NOT EXISTS sentences (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id INTEGER PRIMARY KEY,
     sentence TEXT NOT NULL
 )''')
 
