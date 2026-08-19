@@ -1,7 +1,10 @@
 import sqlite3
 
+from sympy import re
+
 con = sqlite3.connect('mandarin.db')
 cur = con.cursor()
+cur.execute('PRAGMA foreign_keys = ON')
 
 # WORDS TABLE
 cur.execute('''CREATE TABLE IF NOT EXISTS words (
@@ -36,30 +39,23 @@ def insert_word(word):
                 (word,)
     )
     
-    word_id = cur.execute("SELECT id FROM words WHERE word = ?",
+    # return the word id
+    return cur.execute("SELECT id FROM words WHERE word = ?",
                           (word,)
             ).fetchone()[0]
-    
-    con.commit()
-    
-    return word_id
 
 def insert_sentence(sentence):
     cur.execute("INSERT INTO sentences (sentence) VALUES (?)", 
                 (sentence,)
     )
     
-    sentence_id = cur.lastrowid
-    
-    con.commit()
-    
-    return sentence_id
+    # return the last sentence id
+    return cur.lastrowid()
 
 def word_sentence_link(word_id, sentence_id):
     cur.execute("INSERT OR IGNORE INTO words_sentences_links (word_id, sentence_id) VALUES (?, ?)",
                 (word_id, sentence_id)
     )
-    con.commit()
     
     return
 
