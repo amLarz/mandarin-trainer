@@ -57,15 +57,20 @@ def word_sentence_link(word_id, sentence_id):
                 (word_id, sentence_id)
     )
     
-    return
+    return 0
 
 def save_to_database(results):
     for record in results:
         sentence_id = insert_sentence(record["text"])
+        sentences_count += 1
         for lemma in record["classification"]["tier1_content"]:
             word_id = insert_word(lemma)
             word_sentence_link(word_id, sentence_id)
+            word_links_count += 1
     
     con.commit()
     
-    return
+    return {
+        "sentences_inserted": sentences_count,
+        "word_links_inserted": word_links_count
+    }
