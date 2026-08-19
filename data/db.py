@@ -39,6 +39,8 @@ def insert_word(word):
                           (word,)
             ).fetchone()[0]
     
+    con.commit()
+    
     return word_id
 
 def insert_sentence(sentence):
@@ -50,16 +52,20 @@ def insert_sentence(sentence):
                               (sentence,)
                 ).fetchone()[0]
     
+    con.commit()
+    
     return sentence_id
 
 def word_sentence_link(word_id, sentence_id):
     
     return
-        
+
 def save_to_database(results):
     for record in results:
         sentence_id = insert_sentence(record["text"])
         for lemma in record["classification"]["tier1_content"]:
             word_id = insert_word(lemma)
+    
+    con.commit()
     
     return
