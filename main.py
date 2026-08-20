@@ -5,7 +5,7 @@ from nlp.text_processor import process_text
 
 def main(recording):
     # transcribe audio and get result
-    text = transcribe_audio(recording) # TESTING PURPOSES: USE TRANSCRIBE_AUDIO()
+    text = recording if type(recording) == str else transcribe_audio(recording)
     print("Transcribed Text:", text)
 
     # process the transcribed text
