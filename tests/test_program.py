@@ -6,9 +6,12 @@ def test_main():
     
     files = load_files(audio_or_text)
     print(files)
+    i = 0
     for file in files:
-        print(f"Testing with audio file: {file}")
-        main(file)  # Call the main function for each audio file
+        i += 1
+        print(f"TEST {i}--------------------------------------------------") 
+        main(file, input_type=audio_or_text)  # Call the main function for each audio file
+        print("\n\n") # Add a newline for better readability between tests
         
     return 0 
 

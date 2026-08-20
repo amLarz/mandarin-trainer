@@ -13,7 +13,6 @@ def load_files(audio_or_text):
     # iterate through the files in the test_files directory and add them to the list if they are valid formats
     for file in os.listdir(os.path.join(FOLDER_PATH, "test_files")):
         if file.endswith(valid_file_formats):
-            print(file)
             files.append(os.path.join(FOLDER_PATH, "test_files", file))
 
     # if user input is text
