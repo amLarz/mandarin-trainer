@@ -3,9 +3,9 @@ from audio.record import recording_audio
 from data.db import save_to_database
 from nlp.text_processor import process_text
 
-def main():
+def main(recording):
     # transcribe audio and get result
-    text = transcribe_audio(recording_audio()) # TESTING PURPOSES: USE TRANSCRIBE_AUDIO()
+    text = transcribe_audio(recording) # TESTING PURPOSES: USE TRANSCRIBE_AUDIO()
     print("Transcribed Text:", text)
 
     # process the transcribed text
@@ -16,4 +16,4 @@ def main():
     print(save_to_database(processed_text))
     
 if __name__ == "__main__":
-    main()
+    main(recording_audio())  # Call the main function with the recorded audio
