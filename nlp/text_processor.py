@@ -45,11 +45,11 @@ def is_orphaned_filter(token):
 
 def classify_words(token):
     lemma = token.lemma_
-    
-    if lemma in CORE_FUNCTIONAL_WORDS:
-        return "tier0_functional"
+
     if token.pos_ in ["NOUN", "VERB", "ADJ", "ADV", "PROPN", "NUM"]:
         return "tier1_content"
+    if lemma in CORE_FUNCTIONAL_WORDS:
+        return "tier0_functional"
     
     return None
 
