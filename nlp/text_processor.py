@@ -45,8 +45,10 @@ def is_orphaned_filter(token):
 
 def classify_words(token):
     lemma = token.lemma_
+    
+    tier1_content = (token.pos_ in ["NOUN", "VERB", "ADJ", "ADV", "PROPN", "NUM"]) or (token.dep_ in ["ROOT", "xcomp", "ccomp", "csubj"] and token.pos_ != "AUX")
 
-    if token.pos_ in ["NOUN", "VERB", "ADJ", "ADV", "PROPN", "NUM"]:
+    if tier1_content:
         return "tier1_content"
     if lemma in CORE_FUNCTIONAL_WORDS:
         return "tier0_functional"
@@ -56,7 +58,7 @@ def classify_words(token):
 def process_token(token):
     
     # exemptions for certain parts of speech and dependencies (may add more exemptions in the future)
-    exemptions = (token.pos_ in ["NUM"]) or (token.dep_ in ["ROOT", "xcomp", "ccomp", "csubj"] and token.pos_ not in ["AUX"])
+    exemptions = (token.pos_ in ["NUM"]) or (token.dep_ in ["ROOT", "xcomp", "ccomp", "csubj"] and token.pos_ != "AUX")
     
     if exemptions:
         is_stop = False
