@@ -1,1 +1,0 @@
-I spent like three hours debugging my Python script yesterday and it was honestly so satisfying when it finally worked.

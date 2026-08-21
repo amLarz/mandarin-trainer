@@ -1,1 +1,0 @@
-I've been using spaCy and Whisper for like two weeks now to build this thing.
