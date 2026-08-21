@@ -1,4 +1,5 @@
 import os
+import csv
 
 FOLDER_PATH = os.path.dirname(os.path.abspath(__file__))
 
@@ -6,7 +7,7 @@ def load_files(audio_or_text):
     files = [] # directory to store the audio files
     
     if audio_or_text == "text":
-        valid_file_formats = (".txt")
+        valid_file_formats = (".csv")
     elif audio_or_text == "audio":
         valid_file_formats = (".mp3", ".wav", ".flac")
     
@@ -20,9 +21,9 @@ def load_files(audio_or_text):
         example_text = []
         for file in files:
             with open(file, 'r', encoding='utf-8') as f:
-                content = f.read()
-                example_text.append(content)
-        
+                content = csv.reader(f)
+                for row in content:
+                    example_text.append(row[0])
         return example_text
     
     # if the user input is not valid, return an empty list
