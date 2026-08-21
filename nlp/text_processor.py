@@ -55,7 +55,7 @@ def classify_words(token):
 
 def process_token(token):
     
-    if token.pos_ in ["NUM"] and token.dep_ in ["ROOT", "xcomp", "ccomp", "csubj"]:
+    if token.pos_ in ["NUM"] or token.dep_ in ["ROOT", "xcomp", "ccomp", "csubj"]:
         is_stop = False
     else:
         # layer 1: filter out stop words
