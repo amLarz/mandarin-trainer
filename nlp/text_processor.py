@@ -54,8 +54,9 @@ def classify_words(token):
     return None
 
 def process_token(token):
+    exemptions = (token.pos_ in ["NUM"]) or (token.dep_ in ["ROOT", "xcomp", "ccomp", "csubj"] and token.pos_ not in ["AUX"])
     
-    if token.pos_ in ["NUM"] or token.dep_ in ["ROOT", "xcomp", "ccomp", "csubj"]:
+    if exemptions:
         is_stop = False
     else:
         # layer 1: filter out stop words
