@@ -54,8 +54,12 @@ def classify_words(token):
     return None
 
 def process_token(token):
-    # layer 1: filter out stop words
-    is_stop = is_stop_filter(token)
+    
+    if token.pos_ in ["NUM"] and token.dep_ in ["ROOT", "xcomp", "ccomp", "csubj"]:
+        is_stop = False
+    else:
+        # layer 1: filter out stop words
+        is_stop = is_stop_filter(token)
 
     if is_stop == True:
         is_orphaned = True
