@@ -54,6 +54,8 @@ def classify_words(token):
     return None
 
 def process_token(token):
+    
+    # exemptions for certain parts of speech and dependencies (may add more exemptions in the future)
     exemptions = (token.pos_ in ["NUM"]) or (token.dep_ in ["ROOT", "xcomp", "ccomp", "csubj"] and token.pos_ not in ["AUX"])
     
     if exemptions:
